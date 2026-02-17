@@ -1,0 +1,21 @@
+
+name: Zillion Builder
+on:
+  repository_dispatch:
+    types: [new_task]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup & Build
+        run: |
+          pip install flet
+          flet sdk install
+          echo "${{ github.event.client_payload.code }}" > main.py
+          flet build apk main.py
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-apk
+          path: build/apk/*.apk
