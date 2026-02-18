@@ -1,2 +1,2 @@
-// Gradle Configuration
-// Add your configuration here
+// Gradle settings file for the project.
+include ':app'
